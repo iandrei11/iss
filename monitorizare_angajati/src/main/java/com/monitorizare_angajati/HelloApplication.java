@@ -24,13 +24,15 @@ public class HelloApplication extends Application {
             System.out.println("Cannot find bd.config "+e);
         }
 
-
-        Service service = new Service(new UserRepoBD());
+        UserRepoBD userRepoBD =  new UserRepoBD(props);
+        Service service = new Service(userRepoBD);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("gui_login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 500);
         LoginController loginController = fxmlLoader.getController();
         loginController.setService(service);
+
+        System.out.println(userRepoBD.getAll().size());
 
         stage.setTitle("Hello!");
         stage.setScene(scene);
